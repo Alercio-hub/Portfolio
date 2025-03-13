@@ -1,0 +1,835 @@
+<!DOCTYPE html><html lang="pt"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dalima - 15 Anos de Inovação</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f1fe',
+                            100: '#e3e4fc',
+                            200: '#cdcff9',
+                            300: '#b2b5f5',
+                            400: '#9897ef',
+                            500: '#5D5CDE', // Primary color
+                            600: '#5351c7',
+                            700: '#4642a3',
+                            800: '#3a3885',
+                            900: '#33336d',
+                        },
+                        secondary: {
+                            500: '#ff9800',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-in-out',
+                        'zoom-in': 'zoomIn 0.3s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        zoomIn: {
+                            '0%': { transform: 'scale(0.9)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: #5D5CDE;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -0.4rem;
+            top: 0.5rem;
+            height: 1rem;
+            width: 1rem;
+            border-radius: 50%;
+            background-color: #5D5CDE;
+            border: 2px solid white;
+        }
+        
+        .timeline-item:hover::after {
+            background-color: #ff9800;
+            transform: scale(1.2);
+            transition: all 0.3s ease;
+        }
+        
+        .dark .timeline-item::after {
+            border-color: #1f2937;
+        }
+        
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .testimonial-slide {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+        
+        .testimonial-slide.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .dark ::-webkit-scrollbar-track {
+            background: #374151;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #5D5CDE;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4642a3;
+        }
+        
+        .campaign-card {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .campaign-card:hover {
+            transform: scale(1.02);
+        }
+        
+        .campaign-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transition: left 0.7s ease-in-out;
+            z-index: 1;
+        }
+        
+        .dark .campaign-card::before {
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+        }
+        
+        .campaign-card:hover::before {
+            left: 100%;
+        }
+        
+        .bg-gradient-hero {
+            background: linear-gradient(135deg, #5D5CDE 0%, #4642a3 100%);
+        }
+        
+        .dark .bg-gradient-hero {
+            background: linear-gradient(135deg, #4642a3 0%, #33336d 100%);
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <!-- Dark Mode Toggle -->
+    <div class="fixed top-4 right-4 z-50 flex items-center">
+        <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 focus:outline-none">
+            <i class="fa-solid fa-sun dark:hidden"></i>
+            <i class="fa-solid fa-moon hidden dark:block"></i>
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-sm z-40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#home" class="text-2xl font-bold text-primary-500">
+                        DALIMA
+                        <span class="text-xs bg-primary-500 text-white px-2 py-1 ml-1 rounded-full">15 ANOS</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex md:items-center md:space-x-8">
+                    <a href="#home" class="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 px-3 py-2 font-medium">Início</a>
+                    <a href="#quem-somos" class="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 px-3 py-2 font-medium">Quem Somos</a>
+                    <a href="#servicos" class="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 px-3 py-2 font-medium">Serviços</a>
+                    <a href="#campanhas" class="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 px-3 py-2 font-medium">Campanhas</a>
+                    <a href="#depoimentos" class="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 px-3 py-2 font-medium">Depoimentos</a>
+                    <a href="#noticias" class="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 px-3 py-2 font-medium">Notícias</a>
+                    <a href="#contato" class="bg-primary-500 text-white hover:bg-primary-600 px-4 py-2 rounded-md font-medium transition-colors">Contate-nos</a>
+                </div>
+                <div class="flex md:hidden items-center">
+                    <button id="mobileMenuButton" class="text-gray-700 dark:text-gray-300 hover:text-primary-500 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-gray-900 shadow-lg absolute w-full">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white">Início</a>
+                <a href="#quem-somos" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white">Quem Somos</a>
+                <a href="#servicos" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white">Serviços</a>
+                <a href="#campanhas" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white">Campanhas</a>
+                <a href="#depoimentos" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white">Depoimentos</a>
+                <a href="#noticias" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white">Notícias</a>
+                <a href="#contato" class="block px-3 py-2 rounded-md text-base font-medium bg-primary-500 text-white hover:bg-primary-600">Contate-nos</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-16 bg-gradient-hero">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-10">
+                <div class="md:w-1/2 animate-fade-in">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight">
+                        15 Anos de Inovação em Comunicação
+                    </h1>
+                    <p class="mt-4 text-xl text-white/90">
+                        Transformando ideias em experiências digitais impactantes em Moçambique desde 2009.
+                    </p>
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <a href="#quem-somos" class="px-6 py-3 bg-white text-primary-600 rounded-full font-medium hover:bg-gray-100 transition-colors">
+                            Nossa História
+                        </a>
+                        <a href="#contato" class="px-6 py-3 bg-secondary-500 text-white rounded-full font-medium hover:bg-orange-600 transition-colors">
+                            Fale Conosco
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 relative animate-zoom-in">
+                    <div class="relative w-full h-80 sm:h-96 md:h-[450px] overflow-hidden rounded-xl shadow-xl">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-black/60 to-transparent z-10"></div>
+                        <svg class="absolute inset-0 w-full h-full" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#5D5CDE;stop-opacity:1"></stop>
+                                    <stop offset="100%" style="stop-color:#ff9800;stop-opacity:1"></stop>
+                                </linearGradient>
+                            </defs>
+                            <rect x="0" y="0" width="100%" height="100%" fill="#333"></rect>
+                            <circle cx="250" cy="250" r="100" fill="url(#grad1)">
+                                <animate attributeName="r" from="50" to="140" dur="8s" repeatCount="indefinite"></animate>
+                                <animate attributeName="opacity" from="1" to="0.6" dur="8s" repeatCount="indefinite"></animate>
+                            </circle>
+                            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="45" font-weight="bold">DALIMA</text>
+                            <text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="20">15 ANOS DE INOVAÇÃO</text>
+                        </svg>
+                    </div>
+                    <div class="absolute -bottom-5 -right-5 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
+                        <div class="text-5xl font-bold text-primary-500">15</div>
+                        <div class="text-lg text-gray-700 dark:text-gray-300">Anos de excelência</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Timeline Section -->
+    <section class="py-16 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 animate-slide-up">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Nossa Jornada de Inovação</h2>
+                <p class="mt-4 text-xl text-gray-600 dark:text-gray-400">Explore os principais marcos da Dalima nos últimos 15 anos</p>
+            </div>
+            
+            <div class="relative">
+                <div class="timeline-container overflow-x-auto pb-8">
+                    <div class="inline-flex min-w-full">
+                        <div class="timeline flex space-x-8 px-4">
+                            <div class="timeline-item animate-fade-in" style="animation-delay: 0.1s">
+                                <div class="bg-white dark:bg-gray-700 p-5 rounded-lg shadow-md">
+                                    <h3 class="text-xl font-semibold text-primary-500">2009</h3>
+                                    <h4 class="font-medium mt-2">Fundação da Dalima</h4>
+                                    <p class="text-gray-600 dark:text-gray-400 mt-2">
+                                        Nuno Lima funda a Dalima com a visão de transformar a comunicação digital em Moçambique.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item animate-fade-in" style="animation-delay: 0.2s">
+                                <div class="bg-white dark:bg-gray-700 p-5 rounded-lg shadow-md">
+                                    <h3 class="text-xl font-semibold text-primary-500">2011</h3>
+                                    <h4 class="font-medium mt-2">Primeiro Painel Digital</h4>
+                                    <p class="text-gray-600 dark:text-gray-400 mt-2">
+                                        Instalação do primeiro painel de publicidade digital em Maputo, marcando o início da revolução na mídia exterior.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item animate-fade-in" style="animation-delay: 0.3s">
+                                <div class="bg-white dark:bg-gray-700 p-5 rounded-lg shadow-md">
+                                    <h3 class="text-xl font-semibold text-primary-500">2014</h3>
+                                    <h4 class="font-medium mt-2">Expansão Nacional</h4>
+                                    <p class="text-gray-600 dark:text-gray-400 mt-2">
+                                        Ampliação da rede de painéis digitais para outras províncias de Moçambique, consolidando presença nacional.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item animate-fade-in" style="animation-delay: 0.4s">
+                                <div class="bg-white dark:bg-gray-700 p-5 rounded-lg shadow-md">
+                                    <h3 class="text-xl font-semibold text-primary-500">2016</h3>
+                                    <h4 class="font-medium mt-2">Tecnologia Interativa</h4>
+                                    <p class="text-gray-600 dark:text-gray-400 mt-2">
+                                        Introdução de painéis interativos com tecnologia touchscreen, estabelecendo novo padrão no mercado.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item animate-fade-in" style="animation-delay: 0.5s">
+                                <div class="bg-white dark:bg-gray-700 p-5 rounded-lg shadow-md">
+                                    <h3 class="text-xl font-semibold text-primary-500">2018</h3>
+                                    <h4 class="font-medium mt-2">Integração com Redes Sociais</h4>
+                                    <p class="text-gray-600 dark:text-gray-400 mt-2">
+                                        Desenvolvimento de soluções que integram campanhas físicas com presença digital nas redes sociais.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item animate-fade-in" style="animation-delay: 0.6s">
+                                <div class="bg-white dark:bg-gray-700 p-5 rounded-lg shadow-md">
+                                    <h3 class="text-xl font-semibold text-primary-500">2020</h3>
+                                    <h4 class="font-medium mt-2">Soluções Digitais Completas</h4>
+                                    <p class="text-gray-600 dark:text-gray-400 mt-2">
+                                        Expansão do portfólio para incluir gestão completa de mídia digital, desde criação até implementação.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item animate-fade-in" style="animation-delay: 0.7s">
+                                <div class="bg-white dark:bg-gray-700 p-5 rounded-lg shadow-md">
+                                    <h3 class="text-xl font-semibold text-primary-500">2022</h3>
+                                    <h4 class="font-medium mt-2">Tecnologia 3D</h4>
+                                    <p class="text-gray-600 dark:text-gray-400 mt-2">
+                                        Implementação de animações 3D avançadas nos painéis digitais, criando experiências imersivas.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item animate-fade-in" style="animation-delay: 0.8s">
+                                <div class="bg-white dark:bg-gray-700 p-5 rounded-lg shadow-md">
+                                    <h3 class="text-xl font-semibold text-primary-500">2024</h3>
+                                    <h4 class="font-medium mt-2">15 Anos de Inovação</h4>
+                                    <p class="text-gray-600 dark:text-gray-400 mt-2">
+                                        Celebração de 15 anos transformando a comunicação em Moçambique, com reconhecimento como líder de mercado.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timeline navigation arrows -->
+                <button id="scrollLeft" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-700 p-3 rounded-full shadow-lg text-primary-500 hover:bg-primary-50 dark:hover:bg-gray-600 focus:outline-none z-10">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="scrollRight" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-700 p-3 rounded-full shadow-lg text-primary-500 hover:bg-primary-50 dark:hover:bg-gray-600 focus:outline-none z-10">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Quem Somos Section -->
+    <section id="quem-somos" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 animate-fade-in">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Quem Somos</h2>
+                    <div class="w-20 h-1 bg-primary-500 mt-4 mb-6"></div>
+                    <p class="text-lg text-gray-700 dark:text-gray-300 mb-6">
+                        Há 15 anos, a Dalima nasceu com uma missão clara: transformar a comunicação digital em Moçambique. Fundada por Nuno Lima, nossa empresa rapidamente se destacou como pioneira em soluções inovadoras de mídia exterior e publicidade digital.
+                    </p>
+                    <p class="text-lg text-gray-700 dark:text-gray-300 mb-6">
+                        Nossa visão é ser a referência em comunicação digital interativa no mercado moçambicano, sempre à frente das tendências e tecnologias que moldam o futuro da publicidade.
+                    </p>
+                    <div class="bg-primary-50 dark:bg-gray-800 p-6 rounded-lg border-l-4 border-primary-500 mt-8">
+                        <h3 class="text-xl font-semibold text-primary-600 dark:text-primary-400 mb-3">Nossa Missão</h3>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            Conectar marcas e pessoas através de experiências digitais inovadoras, impactantes e memoráveis, contribuindo para o desenvolvimento do ecossistema digital em Moçambique.
+                        </p>
+                    </div>
+                </div>
+                <div class="md:w-1/2 animate-zoom-in">
+                    <div class="relative">
+                        <div class="bg-primary-500 absolute -top-4 -left-4 w-24 h-24 rounded-lg opacity-20"></div>
+                        <div class="bg-secondary-500 absolute -bottom-4 -right-4 w-24 h-24 rounded-lg opacity-20"></div>
+                        <div class="relative bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Nossa Equipe</h3>
+                            
+                            <div class="mb-8">
+                                <div class="flex items-center gap-4 mb-3">
+                                    <div class="w-16 h-16 rounded-full bg-primary-100 dark:bg-gray-700 flex items-center justify-center text-primary-500 text-2xl">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-semibold text-gray-900 dark:text-white">Nuno Lima</h4>
+                                        <p class="text-primary-500">Fundador &amp; CEO</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 dark:text-gray-300 pl-20">
+                                    Visionário e empreendedor, Nuno Lima fundou a Dalima com a missão de revolucionar a comunicação digital em Moçambique, estabelecendo novos padrões de inovação no setor.
+                                </p>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-gray-700 flex items-center justify-center text-primary-500">
+                                        <i class="fas fa-laptop-code"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-medium text-gray-900 dark:text-white">Equipe Técnica</h5>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">10 especialistas</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-gray-700 flex items-center justify-center text-primary-500">
+                                        <i class="fas fa-paint-brush"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-medium text-gray-900 dark:text-white">Equipe Criativa</h5>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">8 designers</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-gray-700 flex items-center justify-center text-primary-500">
+                                        <i class="fas fa-handshake"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-medium text-gray-900 dark:text-white">Atendimento</h5>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">5 consultores</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-gray-700 flex items-center justify-center text-primary-500">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-medium text-gray-900 dark:text-white">Marketing</h5>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">6 especialistas</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="servicos" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-slide-up">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Nossos Serviços</h2>
+                <p class="mt-4 text-xl text-gray-600 dark:text-gray-400">Soluções digitais completas para sua marca</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Digital Signage -->
+                <div class="service-card bg-white dark:bg-gray-700 rounded-xl shadow-md overflow-hidden animate-fade-in" style="animation-delay: 0.1s">
+                    <div class="h-48 bg-primary-500 flex items-center justify-center text-white">
+                        <i class="fas fa-tv text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Outdoors Digitais</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            Nossa rede de painéis LED de alta resolução em localizações estratégicas em todo o país garante máxima visibilidade para sua marca.
+                        </p>
+                        <ul class="space-y-2 mb-5">
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Painéis em locais premium
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Conteúdo dinâmico adaptativo
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Relatórios de performance
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Social Media Management -->
+                <div class="service-card bg-white dark:bg-gray-700 rounded-xl shadow-md overflow-hidden animate-fade-in" style="animation-delay: 0.2s">
+                    <div class="h-48 bg-primary-600 flex items-center justify-center text-white">
+                        <i class="fas fa-hashtag text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Gestão de Redes Sociais</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            Estratégias personalizadas para ampliar sua presença digital e engajar seu público-alvo nas principais plataformas sociais.
+                        </p>
+                        <ul class="space-y-2 mb-5">
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Planejamento de conteúdo
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Gestão de comunidade
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Análise de métricas e resultados
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Google Ads & SEO -->
+                <div class="service-card bg-white dark:bg-gray-700 rounded-xl shadow-md overflow-hidden animate-fade-in" style="animation-delay: 0.3s">
+                    <div class="h-48 bg-primary-700 flex items-center justify-center text-white">
+                        <i class="fas fa-search text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Google Ads &amp; SEO</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            Maximize sua visibilidade online com estratégias de busca que destacam sua marca quando os clientes estão procurando seus produtos.
+                        </p>
+                        <ul class="space-y-2 mb-5">
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Campanhas de Google Ads
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Otimização para motores de busca
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Monitoramento de palavras-chave
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Motion Design -->
+                <div class="service-card bg-white dark:bg-gray-700 rounded-xl shadow-md overflow-hidden animate-fade-in" style="animation-delay: 0.4s">
+                    <div class="h-48 bg-primary-800 flex items-center justify-center text-white">
+                        <i class="fas fa-film text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Motion Design</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            Animações 2D e 3D que dão vida à sua marca, criando experiências visuais memoráveis e engajantes.
+                        </p>
+                        <ul class="space-y-2 mb-5">
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Animações para painéis digitais
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Vídeos para redes sociais
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Identidade visual animada
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Email Marketing -->
+                <div class="service-card bg-white dark:bg-gray-700 rounded-xl shadow-md overflow-hidden animate-fade-in" style="animation-delay: 0.5s">
+                    <div class="h-48 bg-primary-600 flex items-center justify-center text-white">
+                        <i class="fas fa-envelope text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Email Marketing</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            Estratégias de comunicação direta que convertem leads em clientes através de mensagens personalizadas e relevantes.
+                        </p>
+                        <ul class="space-y-2 mb-5">
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Design de newsletters
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Automação de campanhas
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Segmentação avançada
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Interactive Technologies -->
+                <div class="service-card bg-white dark:bg-gray-700 rounded-xl shadow-md overflow-hidden animate-fade-in" style="animation-delay: 0.6s">
+                    <div class="h-48 bg-primary-700 flex items-center justify-center text-white">
+                        <i class="fas fa-vr-cardboard text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Tecnologias Interativas</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            Experiências imersivas que conectam o físico e o digital, criando momentos memoráveis para seu público.
+                        </p>
+                        <ul class="space-y-2 mb-5">
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Painéis interativos touchscreen
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Realidade aumentada
+                            </li>
+                            <li class="flex items-center text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-check text-primary-500 mr-2"></i>
+                                Projeção mapeada
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Campaigns Section -->
+    <section id="campanhas" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-slide-up">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Campanhas de Sucesso</h2>
+                <p class="mt-4 text-xl text-gray-600 dark:text-gray-400">Projetos que transformaram a presença digital de nossos clientes</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Campaign 1 -->
+                <div class="campaign-card bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden animate-fade-in">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Celebração 15 Anos Spot Comunicações</h3>
+                            <span class="bg-secondary-500 text-white text-xs px-2 py-1 rounded-full">2023</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 mb-5">
+                            Campanha integrada utilizando painéis digitais para celebrar os 15 anos da Spot Comunicações, com mensagens personalizadas e interativas.
+                        </p>
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <i class="fas fa-bullseye text-primary-500"></i>
+                                <h4 class="font-medium text-gray-900 dark:text-white">Objetivos</h4>
+                            </div>
+                            <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1">
+                                <li>Aumentar reconhecimento da marca</li>
+                                <li>Engajar público com mensagens personalizadas</li>
+                                <li>Destacar histórico de inovação da empresa</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                            <div class="flex items-center gap-3 mb-2">
+                                <i class="fas fa-chart-line text-primary-500"></i>
+                                <h4 class="font-medium text-gray-900 dark:text-white">Resultados</h4>
+                            </div>
+                            <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1">
+                                <li>72% de aumento em interações nas redes sociais</li>
+                                <li>35 mil impressões diárias nos painéis digitais</li>
+                                <li>Aumento de 45% nas menções espontâneas da marca</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="h-64 bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center p-6">
+                        <div class="text-center text-white">
+                            <i class="fas fa-image text-4xl mb-3 opacity-70"></i>
+                            <div class="font-medium">Outdoor digital com design comemorativo</div>
+                            <div class="text-sm mt-2 opacity-80">Campanha exibida nos principais painéis de Maputo</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Campaign 2 -->
+                <div class="campaign-card bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden animate-fade-in" style="animation-delay: 0.2s">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Campanha 2M - Festas Responsáveis</h3>
+                            <span class="bg-secondary-500 text-white text-xs px-2 py-1 rounded-full">2022</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 mb-5">
+                            Campanha de conscientização para a cervejaria 2M sobre consumo responsável durante períodos festivos, com mensagens impactantes.
+                        </p>
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <i class="fas fa-bullseye text-primary-500"></i>
+                                <h4 class="font-medium text-gray-900 dark:text-white">Objetivos</h4>
+                            </div>
+                            <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1">
+                                <li>Promover mensagem de consumo responsável</li>
+                                <li>Reforçar imagem da marca como socialmente responsável</li>
+                                <li>Alcançar público jovem em período festivo</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                            <div class="flex items-center gap-3 mb-2">
+                                <i class="fas fa-chart-line text-primary-500"></i>
+                                <h4 class="font-medium text-gray-900 dark:text-white">Resultados</h4>
+                            </div>
+                            <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1">
+                                <li>Mais de 1 milhão de pessoas alcançadas</li>
+                                <li>Reconhecimento pela iniciativa de responsabilidade social</li>
+                                <li>86% de feedback positivo do público</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="h-64 bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center p-6">
+                        <div class="text-center text-white">
+                            <i class="fas fa-image text-4xl mb-3 opacity-70"></i>
+                            <div class="font-medium">Painéis interativos com mensagens de conscientização</div>
+                            <div class="text-sm mt-2 opacity-80">Campanha presente em 15 cidades moçambicanas</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Campaign 3 -->
+                <div class="campaign-card bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden animate-fade-in" style="animation-delay: 0.3s">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Lançamento da Nova Linha Vodacom</h3>
+                            <span class="bg-secondary-500 text-white text-xs px-2 py-1 rounded-full">2021</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 mb-5">
+                            Campanha de lançamento de novos serviços da Vodacom utilizando painéis digitais interativos e integração com redes sociais.
+                        </p>
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <i class="fas fa-bullseye text-primary-500"></i>
+                                <h4 class="font-medium text-gray-900 dark:text-white">Objetivos</h4>
+                            </div>
+                            <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1">
+                                <li>Anunciar nova linha de serviços digitais</li>
+                                <li>Demonstrar tecnologia através da própria campanha</li>
+                                <li>Gerar leads para os novos serviços</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                            <div class="flex items-center gap-3 mb-2">
+                                <i class="fas fa-chart-line text-primary-500"></i>
+                                <h4 class="font-medium text-gray-900 dark:text-white">Resultados</h4>
+                            </div>
+                            <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1">
+                                <li>Aumento de 56% nas conversões dos novos serviços</li>
+                                <li>25.000 interações QR code nos painéis digitais</li>
+                                <li>Campanha premiada de inovação tecnológica</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="h-64 bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center p-6">
+                        <div class="text-center text-white">
+                            <i class="fas fa-image text-4xl mb-3 opacity-70"></i>
+                            <div class="font-medium">Painéis com QR code interativo</div>
+                            <div class="text-sm mt-2 opacity-80">Tecnologia de interação em tempo real</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Campaign 4 -->
+                <div class="campaign-card bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden animate-fade-in" style="animation-delay: 0.4s">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">BCI - Dia Mundial da Poupança</h3>
+                            <span class="bg-secondary-500 text-white text-xs px-2 py-1 rounded-full">2023</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 mb-5">
+                            Campanha educativa sobre educação financeira para o Banco Comercial e de Investimentos (BCI) em celebração ao Dia Mundial da Poupança.
+                        </p>
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-5">
+                            <div class="flex items-center gap-3 mb-2">
+                                <i class="fas fa-bullseye text-primary-500"></i>
+                                <h4 class="font-medium text-gray-900 dark:text-white">Objetivos</h4>
+                            </div>
+                            <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1">
+                                <li>Educar o público sobre importância da poupança</li>
+                                <li>Promover produtos financeiros do BCI</li>
+                                <li>Posicionar o banco como parceiro em educação financeira</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                            <div class="flex items-center gap-3 mb-2">
+                                <i class="fas fa-chart-line text-primary-500"></i>
+                                <h4 class="font-medium text-gray-900 dark:text-white">Resultados</h4>
+                            </div>
+                            <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1">
+                                <li>Aumento de 38% na abertura de contas poupança</li>
+                                <li>Mais de 15.000 downloads do guia de educação financeira</li>
+                                <li>Crescimento de 42% nos investimentos em planos de poupança</li>
+                            </ul>
+                        </div>
+                    </div>
+                    </div></div></div></section></body></html>
